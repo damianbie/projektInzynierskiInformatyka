@@ -1,0 +1,15 @@
+{
+    "latex-workshop.latex.toolchain": [
+    {
+        "command": "latexdocker.cmd",
+        "args": [
+            "latexmk",
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "-pdf",
+            "%DOCFILE%"
+        ]
+    }
+]
+}

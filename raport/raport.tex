@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% %
+%%% % weiiszablon.tex
+%%% % The Faculty of Electrical and Computer Engineering
+%%% % Rzeszow University Of Technology diploma thesis Template
+%%% % Szablon pracy dyplomowej Wydziału Elektrotechniki 
+%%% % i Informatyki PRz
+%%% % June, 2015
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,twoside]{article}
+
+\usepackage{weiiszablon}
+
+\author{Damian Bielecki}
+
+% np. EF-123456, EN-654321, ...
+\studentID{EF-163461}
+\title{Śledzenie obiektów przez robota mobilnego z wykorzystaniem głębokiej sieci neuronowej}
+\titleEN{Temat pracy po angielsku}
+
+
+%%% wybierz rodzaj pracy wpisując jeden z poniższych numerów: ...
+% 1 = inżynierska	% BSc
+% 2 = magisterska	% MSc
+% 3 = doktorska		% PhD
+%%% na miejsce zera w linijce poniżej
+\newcommand{\rodzajPracyNo}{1}
+
+
+%%% promotor
+\supervisor{dr.hab.inż Krzysztof Wiktorowicz prof. PRz}
+%% przykład: dr hab. inż. Józef Nowak, prof. PRz
+
+%%% promotor ze stopniami naukowymi po angielsku
+\supervisorEN{(academic degree) Imię i nazwisko opiekuna}
+
+\abstract{Treść streszczenia po polsku}
+\abstractEN{Treść streszczenia po angielsku}
+
+\begin{document}
+
+% strona tytułowa
+\maketitle
+
+\blankpage
+
+% spis treści
+\tableofcontents
+
+\clearpage
+\blankpage
+
+\include{pages/wprowadzenie/wprowadzenie}
+
+\include{pages/teoria/teoria}
+
+
+
+\clearpage
+
+\addcontentsline{toc}{section}{Literatura}
+\begin{thebibliography}{4}
+    \bibitem{sztucznyNeuron} https://batmaja.com/sztuczny-neuron/ Dostęp 07.01.2023
+    \bibitem{schematAISite} https://www.v7labs.com/blog/machine-learning-guide Dostęp 07.01.2023
+% \bibitem{str} http://weii.portal.prz.edu.pl/pl/materialy-do-pobrania. Dostęp 5.01.2015.
+\end{thebibliography}
+
+\clearpage
+
+% \makesummary
+
+\end{document} 
