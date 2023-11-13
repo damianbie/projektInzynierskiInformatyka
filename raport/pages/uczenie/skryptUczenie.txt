@@ -1,0 +1,49 @@
+clc; clear;
+deepLearnignNetworkName = "csp-darknet53-coco";
+
+classes = ["kolo", "kwadrat", "trojkat"];
+inputSize = [224 224 3];
+% model do wczytania i douczenia
+modelToLoad = "detector.mat";
+%wczytanie obrazow do trenowania
+imds = load("export0105.mat");
+imds = imds.gTruth;
+
+imdsTrain = imageDatastore(imds.DataSource.Source);
+bldsTrain = boxLabelDatastore(imds.LabelData);
+ds = combine(imdsTrain, bldsTrain);
+
+% wyznaczenie funkcji do przetworzenia obrazow 
+trainingDataForEstimation = transform(ds,@(data)preprocessData(data,inputSize));
+numAnchors = 90;
+[anchors, meanIoU] = estimateAnchorBoxes(trainingDataForEstimation,numAnchors);
+area = anchors(:,1).*anchors(:,2);
+[~,idx] = sort(area,"descend");
+anchors = anchors(idx,:);
+anchorBoxes = {anchors(1:3,:);anchors(4:6,:); anchors(7:9,:)};
+
+disp("Wczytano dane...");
+% wczytanie istniejacego detektora lub stworzenie nowego
+if modelToLoad == ""
+    detector = yolov4ObjectDetector(deepLearnignNetworkName, imds.LabelDefinitions.Name,anchorBoxes ,InputSize=inputSize);
+    %analyzeNetwork(detector.Network) % analiza sieci, widok warstw
+else
+    m = load(modelToLoad);
+    detector = m.detector;
+end
+
+disp("Wczytano siec...");
+
+options = trainingOptions("sgdm", ...
+    InitialLearnRate=0.001, ...
+    MiniBatchSize=16,...
+    MaxEpochs=20, ...
+    BatchNormalizationStatistics="moving",...
+    ResetInputNormalization=false,...
+    ExecutionEnvironment="cpu", ...
+    VerboseFrequency=30, ...
+    Plots="training-progress");
+
+%uczenie sieci
+disp("Uczenie");
+[detector,info]= trainYOLOv4ObjectDetector(ds,detector,options);

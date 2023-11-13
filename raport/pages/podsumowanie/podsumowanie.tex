@@ -1,0 +1,45 @@
+\section{Podsumowanie}
+\textbf{Budowa robota} \newline
+Analizując pracę i konstrukcję zbudowanego robota, można zauważyć, że ogólnie konstrukcja spełniła podstawowe założenia 
+pracy inżynierskiej, jednak można poprawić konstrukcje w wielu miejscach. 
+Podczas finalnej pracy i testowania roboczej wersji algorytmu, gdy ten posiadał sporo błędów, przydatne okazałyby się czujniki krańcowe, które nie pozwoliłyby 
+na próbę wyjazdu karetki robota poza poprawny obszar pracy. Takie wjazdy bardzo zmniejszają żywotność silników, ich sterowników (duży płynący przez uzwojenie prąd) oraz 
+mechanicznych elementów, takich jak paski czy łożyska. 
+
+Kolejne konstrukcyjne ulepszenie powinno skupić się na zwiększeniu sztywności 
+nóg utrzymujących ramę. Uzyskana sztywność była wystarczająca, jednak podczas szybkich i gwałtownych ruchów robota było widoczne chybotanie się 
+całej konstrukcji. 
+
+
+Największym problemem okazało się sterowanie w otwartej pętli, które powodowało spore błędy w sterowaniu 'jednorazowym'. 
+Błędy te były spowodowane w znacznej części przez niedokładnie dobrany współczynnik skali oraz przez brak 'świadomości' robota
+o własnej pozycji i korygowanie jej względem oczekiwanej. 
+
+
+Aby poprawić ten błąd należałoby dodać do silników enkodery oraz system pozycjonowania (np. dojazd do rogu robota i określenie tej pozycji jako 0,0),
+dzięki czemu byłoby możliwe uruchomienie sterowania ze sprzężeniem zwrotnym.
+Dodatkowo dzięki dodaniu systemu pozycjonowania, algorytm śledzący mógłby dokładniej wyznaczać docelowe koordynaty oraz 
+monitorować je w trakcie pracy. 
+
+Powyższe błędy udało się zminimalizować trybem "śledzenia", które aktywnie w trakcie pracy kompensowało 
+błędy wynikające w wyżej wymienionych niedokładności.
+
+\textbf{Sieć neuronowa i algorytm sterowania} \newline
+Podobnie jak w przypadku fizycznej części robota, udało się osiągnąć założony efekt, jednak w trakcie rozwoju pojawiło się sporo 
+miejsca na usprawnienia. Uważam, że wytrenowana sieć neuronowa bardzo dobrze radzi sobie z wykrywaniem danych obiektów i to niezależnie od ich 
+orientacji, położenia, koloru czy konfiguracji (np. różne typy trójkątów). Analizując model sieci neuronowej, można dojść do wniosku,
+że jest ona zbyt dużą i powolna jak na tak proste zadanie i rozpoznawanie figur geometrycznych. 
+
+
+Kolejny projekt powinien bazować na zdecydowanie mniejszej 
+sieci neuronowej (np. opisana w rozdziale \ref{section:architekturaAlgorytmu} architektura sieci tiny-yoloV4), co pozwoliłoby zwiększenie szybkości przetwarzania, zwłaszcza na słabszym komputerze, np. Rassbery Pi.
+
+
+Kolejnym usprawnieniem, jakie można wprowadzić to dodanie danych z obiektami będącymi na zróżnicowanym tle, co pozwoliłoby na działanie 
+w zdecydowanie bardziej zróżnicowanych warunkach.
+
+
+Posiadając już doświadczenie z tworzeniem aplikacji okienkowych w Matlabie, uważam że komercyjne rozwiązanie powinno być napisane 
+przy pomocy zdecydowanie wydajniejszego językam takiego jak C++ lub podobnego. Ze względu na bardzo szerokie zastosowanie Matlaba, wygenerowana aplikacja 
+zajmowała bardzo dużo miejsca na dysku, a zapisywany model mógłby być ograniczony jedynie do wag sieci, co zmniejszyło by jego uniwersalność w modyfikacji, 
+ale poprawiło zużycie dysku. Dodatkowo dzięki zastosowaniu  technologi CUDA, można byłoby lepiej wykorzystać dostępne sprzętowe zasoby.
